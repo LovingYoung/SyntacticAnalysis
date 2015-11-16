@@ -48,12 +48,27 @@
                 - _result(List of all tokens)
                 - _buffer(the word have been read but not end)
                 - _index(where we have read)
-                - _string(raw input)
+                - _string(raw input, default value is "")
+                - _keywords(the keywords)
+                - _delimiters(the delimiters)
+                - _Operators(the operators)
             2. methods:
                 - _readAChar():
                     1. judge what origin buffer is
                     1. in = _string[_index]
                     2. _index += 1
-                    2. if in is Delimiter or EOF, origin buffer -> token, continue
+                    2. if in is Delimiter or EOF, and origin is not "", origin buffer -> token, continue
                     3. judge what buffer is now
                     4. if buffer now is Wrong . throw exception
+                - _isKeyword(t):
+                    1. if t in _keywords, return True
+                    2. else return False
+                - _isInteger(t):
+                    1. for i in t, if i is not a digit return False
+                    2. return True
+                - _isDelimiters(t):
+                    1. if t in _delimiters, return True, else return False
+                - _isOperators(t):
+                    1. if t in _operators, return True, else return False
+                - _isIdentifier(t):
+                    1. t[0] is char, t[i] is char or digit
