@@ -34,24 +34,26 @@
         1. Class name: LexAnalysis
         2. Init Parameters:
         3. Interfaces:
->            def lex():
->                """
->                input string(type str)
->                output list[Token]
->                """
->            def readFromString(string):
->                 """
->                 input string(type str)
->                 output None
->                 """
->            def readFromFile(file):
->                 """
->                 input file
->                 """
+            1. def lex():
+                - input None
+                - output list[Token]
+            2. def readFromString(string):
+                - input string(type str)
+                - output None
+            3. def readFromFile(file):
+                - input file
+                - output None
         4. Private:
             1. parameters:
-                1. _result(List of all tokens)
-                2. _buffer(the word have been read but not end)
-                3. _index(where we have read)
+                - _result(List of all tokens)
+                - _buffer(the word have been read but not end)
+                - _index(where we have read)
+                - _string(raw input)
             2. methods:
-                1. _
+                - _readAChar():
+                    1. judge what origin buffer is
+                    1. in = _string[_index]
+                    2. _index += 1
+                    2. if in is Delimiter or EOF, origin buffer -> token, continue
+                    3. judge what buffer is now
+                    4. if buffer now is Wrong . throw exception
