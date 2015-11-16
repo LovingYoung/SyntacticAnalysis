@@ -24,7 +24,7 @@
         2. Identifier(Every Identifier should have different typeID(1000 -> INT_MAX)): Begin with character and organized by characters and digits.
         3. Interger(Every Integer should have the same typeID(200)): Begin with digit and organized by digits.
         4. Operator(Every Integer should have different typeID):+(301), -(302), *(303), /(304), :=(305), =(306), <>(307), >(308), >=(309), <(310), <=(311),
-        5. Delimiter(Every Delimiter should have different typeID): '('(400), ')'(401), ;(402), ','(403)
+        5. Delimiter(Every Delimiter should have different typeID): '('(400), ')'(401), ;(402), ','(403), '\n'(404), '\t'(405), ' '(406)
     
     2. Definition: Struct of tokens
         1. Struct name: Token
@@ -35,8 +35,15 @@
         2. Init Parameters:
         3. Interfaces:
             1. def lex():
-                - input None
-                - output list[Token]
+                1. input None
+                2. output list[Token]
+                1. if i comes to EOF, and origin buffer is not "", origin buffer -> token, break
+                1. in = _string[i]
+                2. i += 1
+                2. if in is Delimiter, and origin buffer is not "", origin buffer -> token, continue
+                2. buffer += in
+                3. judge what buffer is now
+                4. if buffer now is Wrong . throw exception
             2. def readFromString(string):
                 - input string(type str)
                 - output None
@@ -47,28 +54,26 @@
             1. parameters:
                 - _result(List of all tokens)
                 - _buffer(the word have been read but not end)
-                - _index(where we have read)
                 - _string(raw input, default value is "")
                 - _keywords(the keywords)
                 - _delimiters(the delimiters)
                 - _Operators(the operators)
+                - _stringToToken(Map from strings to token)
+                - _nextIdentifier(default is 1000, and add when a token of Identifier added)
             2. methods:
                 - _readAChar():
-                    1. judge what origin buffer is
-                    1. in = _string[_index]
-                    2. _index += 1
-                    2. if in is Delimiter or EOF, and origin is not "", origin buffer -> token, continue
-                    3. judge what buffer is now
-                    4. if buffer now is Wrong . throw exception
                 - _isKeyword(t):
                     1. if t in _keywords, return True
                     2. else return False
                 - _isInteger(t):
                     1. for i in t, if i is not a digit return False
                     2. return True
-                - _isDelimiters(t):
+                - _isDelimiter(t):
                     1. if t in _delimiters, return True, else return False
-                - _isOperators(t):
+                - _isOperator(t):
                     1. if t in _operators, return True, else return False
                 - _isIdentifier(t):
                     1. t[0] is char, t[i] is char or digit
+                - _toToken(t):
+                    1. take a map. from string to int
+                    2. if new token's id >= 1000, self._nextIdentifier += 1
