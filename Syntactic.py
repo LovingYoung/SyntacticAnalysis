@@ -26,9 +26,9 @@ class OTHER:
     @staticmethod
     def process(inStr):
         if inStr[0].getTypeId() in CONSTINFO.getFirst():
-            return CONSTINFO.process(inStr)
+            if False == CONSTINFO.process(inStr): return False
         if inStr[0].getTypeId() in PARAINFO.getFirst():
-            return PARAINFO.process(inStr)
+            if False == PARAINFO.process(inStr): return False
         return SENTENCEPART.process(inStr)
 
 class CONSTINFO:
@@ -104,9 +104,9 @@ class SENTENCEPART:
 
     @staticmethod
     def process(inStr):
-        if inStr[0] in SENTENCE.getFirst():
+        if inStr[0].getTypeId() in SENTENCE.getFirst():
             return SENTENCE.process(inStr)
-        elif inStr[0] in COMPLEXSENTENCE.getFirst():
+        elif inStr[0].getTypeId() in COMPLEXSENTENCE.getFirst():
             return COMPLEXSENTENCE.process(inStr)
         return False
 
@@ -141,16 +141,16 @@ class SENTENCE:
 
     @staticmethod
     def process(inStr):
-        if inStr[0] in ASSIGNMENT.getFirst():
+        if inStr[0].getTypeId() in ASSIGNMENT.getFirst():
             return ASSIGNMENT.process(inStr)
 
-        if inStr[0] in CONDITIONSENTENCE.getFirst():
+        if inStr[0].getTypeId() in CONDITIONSENTENCE.getFirst():
             return CONDITIONSENTENCE.process(inStr)
 
-        if inStr[0] in LOOP.getFirst():
+        if inStr[0].getTypeId() in LOOP.getFirst():
             return LOOP.process(inStr)
 
-        if inStr[0] in COMPLEXSENTENCE.getFirst():
+        if inStr[0].getTypeId() in COMPLEXSENTENCE.getFirst():
             return COMPLEXSENTENCE.process(inStr)
 
         return False
@@ -172,7 +172,7 @@ class ASSIGNMENT:
             return False
         inStr.pop(0)
 
-        return EXPRESSION.process()
+        return EXPRESSION.process(inStr)
 
 class EXPRESSION:
     @staticmethod
@@ -247,6 +247,7 @@ class PLUSOP:
         if inStr[0].getTypeId() == 302:
             inStr.pop(0)
             return True
+        return False
 
 class MULTIOP:
     @staticmethod
@@ -312,7 +313,7 @@ class RELATIONOP:
 
     @staticmethod
     def process(inStr):
-        if inStr[0] in RELATIONOP.getFirst():
+        if inStr[0].getTypeId() in RELATIONOP.getFirst():
             inStr.pop(0)
             return True
         else:
