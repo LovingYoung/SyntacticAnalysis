@@ -1,330 +1,347 @@
 class PROG:
     @staticmethod
-    def process(inStr):
-        root = TreeNode(type = "PROGRAM")
-        a1 = PROGHEAD.process(inStr)
-        a2 = OTHER.process(inStr)
+    def process(instr):
+        a1 = PROGHEAD.process(instr)
+        a2 = OTHER.process(instr)
         return a1 and a2
+
 
 class PROGHEAD:
     @staticmethod
-    def process(inStr):
-        a1 = (inStr[0].getTypeId() == 1)
-        a2 = (inStr[1].getTypeId() >= 1000 and inStr[0].getTypeId() < 100000 )
+    def process(instr):
+        a1 = (instr[0].getTypeId() == 1)
+        a2 = (instr[1].getTypeId() >= 1000 and instr[0].getTypeId() < 100000)
         if a1 and a2:
-            inStr.pop(0)
-            inStr.pop(0)
+            instr.pop(0)
+            instr.pop(0)
             return True
         else:
             return False
 
+
 class OTHER:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [4, 5, 2, 1000, 8, 6]
 
     @staticmethod
-    def process(inStr):
-        if inStr[0].getTypeId() in CONSTINFO.getFirst():
-            if False == CONSTINFO.process(inStr): return False
-        if inStr[0].getTypeId() in PARAINFO.getFirst():
-            if False == PARAINFO.process(inStr): return False
-        return SENTENCEPART.process(inStr)
+    def process(instr):
+        if instr[0].getTypeId() in CONSTINFO.getfirst():
+            if not CONSTINFO.process(instr): return False
+        if instr[0].getTypeId() in PARAINFO.getfirst():
+            if not PARAINFO.process(instr): return False
+        return SENTENCEPART.process(instr)
+
 
 class CONSTINFO:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [4]
 
     @staticmethod
-    def process(inStr):
-        a1 = (inStr[0].getTypeId() == 4)
-        if a1 == True:
-            inStr.pop(0)
-            a2 = CONSTDEF.process(inStr)
-            if a2 == True:
-                while True == CONSTDEF.process(inStr):
+    def process(instr):
+        a1 = (instr[0].getTypeId() == 4)
+        if a1:
+            instr.pop(0)
+            a2 = CONSTDEF.process(instr)
+            if a2:
+                while CONSTDEF.process(instr):
                     pass
                 return True
             else:
                 return False
 
+
 class CONSTDEF:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [1000]
 
     @staticmethod
-    def process(inStr):
-        a1 = (inStr[0].getTypeId() == 1000)
+    def process(instr):
+        a1 = (instr[0].getTypeId() == 1000)
         if a1 == True:
-            inStr.pop(0)
+            instr.pop(0)
         else:
             return False
-        a2 = (inStr[0].getTypeId() == 305)
+        a2 = (instr[0].getTypeId() == 305)
         if a2 == True:
-            inStr.pop(0)
+            instr.pop(0)
         else:
             return False
-        a3 = (inStr[0].getTypeId() == 200)
+        a3 = (instr[0].getTypeId() == 200)
         if a3 == True:
-            inStr.pop(0)
+            instr.pop(0)
         else:
             return False
         return True
+
 
 class PARAINFO:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [5]
 
     @staticmethod
-    def process(inStr):
-        a1 = (inStr[0].getTypeId() == 5)
-        if a1 == True:
-            inStr.pop(0)
+    def process(instr):
+        a1 = (instr[0].getTypeId() == 5)
+        if a1:
+            instr.pop(0)
         else:
             return False
 
-        a2 = (inStr[0].getTypeId() == 1000)
+        a2 = (instr[0].getTypeId() == 1000)
         if a2 == True:
-            inStr.pop(0)
+            instr.pop(0)
         else:
             return False
 
-        while(inStr[0].getTypeId() == 1000):
-            inStr.pop(0)
+        while(instr[0].getTypeId() == 1000):
+            instr.pop(0)
 
         return True
 
+
 class SENTENCEPART:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [2, 1000, 8, 6]
 
     @staticmethod
-    def process(inStr):
-        if inStr[0].getTypeId() in SENTENCE.getFirst():
-            return SENTENCE.process(inStr)
-        elif inStr[0].getTypeId() in COMPLEXSENTENCE.getFirst():
-            return COMPLEXSENTENCE.process(inStr)
+    def process(instr):
+        if instr[0].getTypeId() in SENTENCE.getfirst():
+            return SENTENCE.process(instr)
+        elif instr[0].getTypeId() in COMPLEXSENTENCE.getfirst():
+            return COMPLEXSENTENCE.process(instr)
         return False
+
 
 class COMPLEXSENTENCE:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [2]
 
     @staticmethod
-    def process(inStr):
-        a1 = (inStr[0].getTypeId() == 2)
-        if a1 == False:
+    def process(instr):
+        a1 = (instr[0].getTypeId() == 2)
+        if not a1:
             return False
-        inStr.pop(0)
+        instr.pop(0)
 
-        a2 = SENTENCE.process(inStr)
-        if a2 == False:
+        a2 = SENTENCE.process(instr)
+        if not a2:
             return False
 
-        while(SENTENCE.process(inStr) == True): pass
+        while(SENTENCE.process(instr) == True): pass
 
-        a3 = (inStr[0].getTypeId() == 3)
+        a3 = (instr[0].getTypeId() == 3)
         if a3 == False:
             return False
 
         return a1 and a2 and a3
 
+
 class SENTENCE:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [2, 1000, 8 ,6]
 
     @staticmethod
-    def process(inStr):
-        if inStr[0].getTypeId() in ASSIGNMENT.getFirst():
-            return ASSIGNMENT.process(inStr)
+    def process(instr):
+        if instr[0].getTypeId() in ASSIGNMENT.getfirst():
+            return ASSIGNMENT.process(instr)
 
-        if inStr[0].getTypeId() in CONDITIONSENTENCE.getFirst():
-            return CONDITIONSENTENCE.process(inStr)
+        if instr[0].getTypeId() in CONDITIONSENTENCE.getfirst():
+            return CONDITIONSENTENCE.process(instr)
 
-        if inStr[0].getTypeId() in LOOP.getFirst():
-            return LOOP.process(inStr)
+        if instr[0].getTypeId() in LOOP.getfirst():
+            return LOOP.process(instr)
 
-        if inStr[0].getTypeId() in COMPLEXSENTENCE.getFirst():
-            return COMPLEXSENTENCE.process(inStr)
+        if instr[0].getTypeId() in COMPLEXSENTENCE.getfirst():
+            return COMPLEXSENTENCE.process(instr)
 
         return False
+
 
 class ASSIGNMENT:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [1000]
 
     @staticmethod
-    def process(inStr):
-        a1 = (inStr[0].getTypeId() == 1000)
+    def process(instr):
+        a1 = (instr[0].getTypeId() == 1000)
         if a1 == False:
             return False
-        inStr.pop(0)
+        instr.pop(0)
 
-        a2 = (inStr[0].getTypeId() == 305)
+        a2 = (instr[0].getTypeId() == 305)
         if a2 == False:
             return False
-        inStr.pop(0)
+        instr.pop(0)
 
-        return EXPRESSION.process(inStr)
+        return EXPRESSION.process(instr)
+
 
 class EXPRESSION:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [301, 302, 1000, 200, 400]
 
     @staticmethod
-    def process(inStr):
-        a1 = PLUSOP.process(inStr)
-        a2 = TERM.process(inStr)
+    def process(instr):
+        a1 = PLUSOP.process(instr)
+        a2 = TERM.process(instr)
         if a2 == False:
             return False
-        temp = list(inStr)
+        temp = list(instr)
         while(PLUSOP.process(temp) and TERM.process(temp)):
-            PLUSOP.process(inStr)
-            TERM.process(inStr)
+            PLUSOP.process(instr)
+            TERM.process(instr)
         return True
+
 
 class TERM:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [1000, 200, 400]
 
     @staticmethod
-    def process(inStr):
-        a1 = FACTOR.process(inStr)
+    def process(instr):
+        a1 = FACTOR.process(instr)
         if a1 == False:
             return False
-        temp = list(inStr)
+        temp = list(instr)
         while(MULTIOP.process(temp) and TERM.process(temp)):
-            MULTIOP.process(inStr)
-            TERM.process(inStr)
+            MULTIOP.process(instr)
+            TERM.process(instr)
         return True
+
 
 class FACTOR:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [1000, 200, 400]
 
     @staticmethod
-    def process(inStr):
-        if inStr[0].getTypeId() == 1000:
-            inStr.pop(0)
+    def process(instr):
+        if instr[0].getTypeId() == 1000:
+            instr.pop(0)
             return True
 
-        if inStr[0].getTypeId() == 200:
-            inStr.pop(0)
+        if instr[0].getTypeId() == 200:
+            instr.pop(0)
             return True
 
-        temp = list(inStr)
+        temp = list(instr)
         a1 = (temp[0].getTypeId() == 400)
-        if a1 == True:
+        if a1:
             temp.pop(0)
             if EXPRESSION.process(temp):
                 if temp[0].getTypeId() == 401:
-                    inStr.pop(0)
-                    EXPRESSION.process(inStr)
-                    inStr.pop(0)
+                    instr.pop(0)
+                    EXPRESSION.process(instr)
+                    instr.pop(0)
                     return True
         return False
+
 
 class PLUSOP:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [301, 302]
 
     @staticmethod
-    def process(inStr):
-        if inStr[0].getTypeId() == 301:
-            inStr.pop(0)
+    def process(instr):
+        if instr[0].getTypeId() == 301:
+            instr.pop(0)
             return True
-        if inStr[0].getTypeId() == 302:
-            inStr.pop(0)
+        if instr[0].getTypeId() == 302:
+            instr.pop(0)
             return True
         return False
+
 
 class MULTIOP:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [303, 304]
 
     @staticmethod
-    def process(inStr):
-        if inStr[0].getTypeId() == 303:
-            inStr.pop(0)
+    def process(instr):
+        if instr[0].getTypeId() == 303:
+            instr.pop(0)
             return True
-        if inStr[0].getTypeId() == 304:
-            inStr.pop(0)
+        if instr[0].getTypeId() == 304:
+            instr.pop(0)
             return True
+
 
 class CONDITIONSENTENCE:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [8]
 
     @staticmethod
-    def process(inStr):
-        if inStr[0].getTypeId() == 8:
-            inStr.pop(0)
-            CONDITION.process(inStr)
-            if inStr[0].getTypeId() == 9:
-                inStr.pop(0)
-                if SENTENCE.process(inStr) == True: return True
+    def process(instr):
+        if instr[0].getTypeId() == 8:
+            instr.pop(0)
+            CONDITION.process(instr)
+            if instr[0].getTypeId() == 9:
+                instr.pop(0)
+                if SENTENCE.process(instr): return True
         return False
+
 
 class LOOP:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [6]
 
     @staticmethod
-    def process(inStr):
-        if inStr[0].getTypeId() == 6:
-            inStr.pop(0)
-            CONDITION.process(inStr)
-            if inStr[0].getTypeId() == 7:
-                inStr.pop(0)
-                if SENTENCE.process(inStr) == True: return True
+    def process(instr):
+        if instr[0].getTypeId() == 6:
+            instr.pop(0)
+            CONDITION.process(instr)
+            if instr[0].getTypeId() == 7:
+                instr.pop(0)
+                if SENTENCE.process(instr) == True: return True
         return False
+
 
 class CONDITION:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [301, 302, 1000, 200, 400]
 
     @staticmethod
-    def process(inStr):
-        if EXPRESSION.process(inStr):
-            if RELATIONOP.process(inStr):
-                if EXPRESSION.process(inStr):
+    def process(instr):
+        if EXPRESSION.process(instr):
+            if RELATIONOP.process(instr):
+                if EXPRESSION.process(instr):
                     return True
         return False
 
+
 class RELATIONOP:
     @staticmethod
-    def getFirst():
+    def getfirst():
         return [306, 307, 308, 309, 310, 311]
 
     @staticmethod
-    def process(inStr):
-        if inStr[0].getTypeId() in RELATIONOP.getFirst():
-            inStr.pop(0)
+    def process(instr):
+        if instr[0].getTypeId() in RELATIONOP.getfirst():
+            instr.pop(0)
             return True
         else:
             return False
 
 
 class TreeNode:
-    def __init__(self, children = [], parent = None, type = None, value = None):
+    def __init__(self, children=[], parent=None, typename=None, value=None):
         self._children = children
         self._parent = parent
-        self._type = type
+        self._type = typename
         self._value = value
 
     def getChildren(self):
@@ -347,8 +364,8 @@ class TreeNode:
         self._parent = parent
         return self._parent
 
-    def setType(self, type):
-        self._type = type
+    def setType(self, typename):
+        self._type = typename
         return self._type
 
     def setValue(self, value):
