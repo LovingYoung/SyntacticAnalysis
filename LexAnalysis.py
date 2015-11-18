@@ -41,8 +41,10 @@ class LexAnalysis:
         while(i <= length):
             if i == length:
                 if self._buffer != "":
-                    ans.append(self._toToken(self._buffer))
-                    self._buffer = ""
+                    newToken = self._toToken(self._buffer)
+                    if newToken.getValue() not in self._delimiters:
+                        ans.append(newToken)
+                self._buffer = ""
                 break
 
             origin = self._buffer
@@ -51,10 +53,14 @@ class LexAnalysis:
             i += 1
             if self._isDelimiter(inStr):
                 if self._buffer != "":
-                    ans.append(self._toToken(self._buffer))
+                    newToken = self._toToken(self._buffer)
+                    if newToken.getValue() not in self._delimiters:
+                        ans.append(newToken)
                     self._buffer = ""
                 self._buffer += inStr
-                ans.append(self._toToken(self._buffer))
+                newToken = self._toToken(self._buffer)
+                if newToken.getValue() not in self._delimiters:
+                    ans.append(newToken)
                 self._buffer = ""
                 continue
 
@@ -62,7 +68,10 @@ class LexAnalysis:
             if self._isOperator(new) or self._isIdentifier(new) or self._isKeyword(new) or self._isInteger(new) or self._isMedia(new):
                 self._buffer += inStr
             else:
-                ans.append(self._toToken(origin))
+                # ans.append(self._toToken(origin))
+                newToken = self._toToken(origin)
+                if newToken.getValue() not in self._delimiters:
+                    ans.append(newToken)
                 self._buffer = inStr
         return ans
 
