@@ -8,8 +8,6 @@
 
 2. Structure
 
-3. Relationship
-
 * * * * * 
 ### Design for Lex Analysis ###
 
@@ -24,7 +22,7 @@
         2. Identifier(Every Identifier should have different typeID(1000 -> INT_MAX)): Begin with character and organized by characters and digits.
         3. Interger(Every Integer should have the same typeID(200)): Begin with digit and organized by digits.
         4. Operator(Every Integer should have different typeID):+(301), -(302), *(303), /(304), :=(305), =(306), <>(307), >(308), >=(309), <(310), <=(311),
-        5. Delimiter(Every Delimiter should have different typeID): '('(400), ')'(401), ;(402), ','(403), '\n'(404), '\t'(405), ' '(406)
+        5. Delimiter(Every Delimiter should have different typeID): [EMPTY](0) '('(400), ')'(401), ;(402), ','(403), '\n'(404), '\t'(405), ' '(406)
     
     2. Definition: Struct of tokens
         1. Struct name: Token
@@ -76,4 +74,48 @@
                     1. t[0] is char, t[i] is char or digit
                 - _toToken(t):
                     1. take a map. from string to int
-                    2. if new token's id >= 1000, self._nextIdentifier += 1
+                    2. if new token's id >= 1000 and id < 100000, self._nextIdentifier += 1
+
+* * * * *
+
+1. Overview
+    1. Input: an array of Tokens
+    2. Output: the types of every sentence
+    3. Think: recussive descent
+
+2. Structure
+    1. Definition of struct Sentence:
+        - typeId(100000 -> 200000) -> build-in sentences: 100000->110000, running temp sentences 110000 -> 200000
+        - typeName
+        - consist -> a list of tokens' or sentences' typeId
+        - _buildFirst() -> build first list
+        - _buildFollow() -> build follow list
+        - _first -> storage first list
+        - _follow -> storage follow list
+        - getFirst(): return first list
+        - getFollow(): return fllow list
+        - process(): judge next some tokens, if next some tokens is OK return (True,sons) else return (False, [])
+        
+    2. Definition of struct Instance:
+        - maps -> a map from typeId to sentence (the same as Solution.maps)
+        - typeId: what is the instance belong to Sentence
+        - typeName: the typeName
+        - token: the token has been read
+        - sons
+
+    3. Definition of Solution:
+        1. Interfaces:
+            - getSolution(): input[an array of Tokens], output[the definition of the whole text].
+            - Implement:
+                1. instantiate the sentence whose id is 100000. and run it's process().
+                2. return the root of parseTree
+        2. Private Parameters and Methods:
+            - Parameters: 
+                - sentences -> a list of all sentences
+                - tokenArrays -> the array of all tokens
+                - maps -> a map from typeId to sentence
+                - parseTree-> default is None, after process, point to the root of parse tree
+            - Methods:
+                - __init__():
+                    - instantiate all the definition of sentence
+                    - self.tokenArrays = LexAnalysis.lex()

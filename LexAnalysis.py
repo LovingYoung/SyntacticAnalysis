@@ -31,6 +31,9 @@ class LexAnalysis:
             self._media += temp[0]
         self._nextIdentifier = 1000
 
+    def getStringToToken(self):
+        return self._stringToToken
+
     def lex(self):
         length = len(self._string)
         ans = []
@@ -124,8 +127,10 @@ class LexAnalysis:
             return newToken
         elif self._isIdentifier(word):
             newToken.setTypeId(self._nextIdentifier)
-            self._nextIdentifier += 1
+            # self._nextIdentifier += 1
             newToken.setValue(word)
+            # if self._nextIdentifier > 100000:
+            #     print("WRONG!!!, the number of Identifiers is too large")
             return  newToken
         else:
             print("WRONG!!!!: word is " + word)
