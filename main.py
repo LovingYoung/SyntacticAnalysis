@@ -39,7 +39,10 @@ def printParseTree(root, level = 1, parent = -1, up = list(), lastChild = False)
 a = LexAnalysis.LexAnalysis()
 a.readFromFile("testLex")
 ans = a.lex()
-processAns = Syntactic.PROG.process(ans)
-parseTreeRoot = processAns[1]
-print(processAns[0])
-printParseTree(parseTreeRoot)
+try:
+    processAns = Syntactic.PROG.process(ans)
+    parseTreeRoot = processAns[1]
+    print(processAns[0])
+    printParseTree(parseTreeRoot)
+except Syntactic.myException as e:
+    print(str(e))

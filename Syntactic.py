@@ -13,11 +13,13 @@ class PROGHEAD:
         myroot = TreeNode(parent=root, typename='Program_Head')
         a1 = (instr[0].getTypeId() == 1)
         if not a1:
+            Analysis.raiseException(instr)
             return False
         son = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
         instr.pop(0)
         a2 = (instr[0].getTypeId() == 1000)
         if not a2:
+            Analysis.raiseException(instr)
             return False
         son = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
         instr.pop(0)
@@ -34,9 +36,11 @@ class BLOCK:
         myroot = TreeNode(parent=root, typename='Block')
         if instr[0].getTypeId() in CONSTINFO.getfirst():
             if not CONSTINFO.process(instr, myroot):
+                Analysis.raiseException(instr)
                 return False
         if instr[0].getTypeId() in PARAINFO.getfirst():
             if not PARAINFO.process(instr, myroot):
+                Analysis.raiseException(instr)
                 return False
         return SENTENCEPART.process(instr, myroot)
 
@@ -59,6 +63,7 @@ class CONSTINFO:
                     pass
                 return True
             else:
+                Analysis.raiseException(instr)
                 return False
 
 
@@ -75,18 +80,21 @@ class CONSTDEF:
             ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
             instr.pop(0)
         else:
+            Analysis.raiseException(instr)
             return False
         a2 = (instr[0].getTypeId() == 305)
         if a2 == True:
             ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
             instr.pop(0)
         else:
+            Analysis.raiseException(instr)
             return False
         a3 = (instr[0].getTypeId() == 200)
         if a3 == True:
             ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
             instr.pop(0)
         else:
+            Analysis.raiseException(instr)
             return False
         return True
 
@@ -104,6 +112,7 @@ class PARAINFO:
             ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
             instr.pop(0)
         else:
+            Analysis.raiseException(instr)
             return False
 
         a2 = (instr[0].getTypeId() == 1000)
@@ -111,6 +120,7 @@ class PARAINFO:
             ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
             instr.pop(0)
         else:
+            Analysis.raiseException(instr)
             return False
 
         while(instr[0].getTypeId() == 1000):
@@ -132,6 +142,7 @@ class SENTENCEPART:
             return SENTENCE.process(instr, myroot)
         elif instr[0].getTypeId() in COMPLEXSENTENCE.getfirst():
             return COMPLEXSENTENCE.process(instr, myroot)
+        Analysis.raiseException(instr)
         return False
 
 
@@ -145,12 +156,14 @@ class COMPLEXSENTENCE:
         myroot = TreeNode(parent=root,typename='Complex_Sentences')
         a1 = (instr[0].getTypeId() == 2)
         if not a1:
+            Analysis.raiseException(instr)
             return False
         ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
         instr.pop(0)
 
         a2 = SENTENCE.process(instr,myroot)
         if not a2:
+            Analysis.raiseException(instr)
             return False
 
         while SENTENCE.process(instr, myroot): pass
@@ -159,6 +172,7 @@ class COMPLEXSENTENCE:
         ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
         instr.pop(0)
         if not a3:
+            Analysis.raiseException(instr)
             return False
 
         return True
@@ -197,12 +211,14 @@ class ASSIGNMENT:
         myroot = TreeNode(parent=root, typename='Assignment')
         a1 = (instr[0].getTypeId() == 1000)
         if not a1:
+            Analysis.raiseException(instr)
             return False
         ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
         instr.pop(0)
 
         a2 = (instr[0].getTypeId() == 305)
         if not a2:
+            Analysis.raiseException(instr)
             return False
         ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
         instr.pop(0)
@@ -221,6 +237,7 @@ class EXPRESSION:
         a1 = PLUSOP.process(instr, myroot)
         a2 = TERM.process(instr, myroot)
         if not a2:
+            Analysis.raiseException(instr)
             return False
         temp = list(instr)
         while(PLUSOP.process(temp, myroot) and TERM.process(temp, myroot)):
@@ -239,6 +256,7 @@ class TERM:
         myroot = TreeNode(parent=root, typename='Term')
         a1 = FACTOR.process(instr, myroot)
         if not a1:
+            Analysis.raiseException(instr)
             return False
         temp = list(instr)
         while(MULTIOP.process(temp, None) and TERM.process(temp, None)):
@@ -277,6 +295,7 @@ class FACTOR:
                     ter = TreeNode(parent=myroot, typename='Terminator', value=instr[0])
                     instr.pop(0)
                     return True
+        Analysis.raiseException(instr)
         return False
 
 
@@ -334,6 +353,7 @@ class CONDITIONSENTENCE:
                 instr.pop(0)
                 if SENTENCE.process(instr, myroot):
                     return True
+        Analysis.raiseException(instr)
         return False
 
 
@@ -354,6 +374,7 @@ class LOOP:
                 instr.pop(0)
                 if SENTENCE.process(instr, myroot):
                     return True
+        Analysis.raiseException(instr)
         return False
 
 
@@ -369,6 +390,7 @@ class CONDITION:
             if RELATIONOP.process(instr, myroot):
                 if EXPRESSION.process(instr, myroot):
                     return True
+        Analysis.raiseException(instr)
         return False
 
 
@@ -385,6 +407,7 @@ class RELATIONOP:
             instr.pop(0)
             return True
         else:
+            Analysis.raiseException(instr)
             return False
 
 
@@ -427,3 +450,24 @@ class TreeNode:
     def setValue(self, value):
         self._value = value
         return self._value
+
+class myException(Exception):
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return "Some Errors has occured before " + '"' + str(self.value) + '"'
+
+class Analysis:
+    @staticmethod
+    def analysis(instr):
+        return PROG.process(instr)
+
+    @staticmethod
+    def raiseException(instr):
+        i = 0
+        sum = ""
+        while i < len(instr) and i < 10:
+            sum += instr[i].value + ' '
+            i += 1
+        raise myException(sum)
