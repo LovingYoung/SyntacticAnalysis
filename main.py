@@ -1,3 +1,4 @@
+# coding: utf-8
 import LexAnalysis
 import Syntactic
 
@@ -36,13 +37,34 @@ def printParseTree(root, level = 1, parent = -1, up = list(), lastChild = False)
             i += 1
         printParseTree(l[len(l) - 1], level + 1, parent=level * 4, up=up, lastChild=True)
 
-a = LexAnalysis.LexAnalysis()
-a.readFromFile("testLex")
-ans = a.lex()
-try:
-    processAns = Syntactic.PROG.process(ans)
-    parseTreeRoot = processAns[1]
-    print(processAns[0])
-    printParseTree(parseTreeRoot)
-except Syntactic.myException as e:
-    print(str(e))
+if __name__ == '__main__':
+    a = LexAnalysis.LexAnalysis()
+    a.readFromFile("testLex")
+    ans = a.lex()
+    try:
+        processAns = Syntactic.PROG.process(ans)
+        parseTreeRoot = processAns[1]
+        print(processAns[0])
+        printParseTree(parseTreeRoot)
+    except Syntactic.myException as e:
+        print(str(e))
+
+
+def analysis(string = None, readFile = "testLex"):
+    a = LexAnalysis.LexAnalysis()
+    if string is not None:
+        a.readFromString(string)
+    elif readFile is not None:
+        a.readFromFile(readFile)
+    else:
+        print("Error: Please input your code")
+        return
+    ans = a.lex()
+    try:
+        processAns = Syntactic.PROG.process(ans)
+        parseTreeRoot = processAns[1]
+        print(processAns[0])
+        printParseTree(parseTreeRoot)
+    except Syntactic.myException as e:
+        print(str(e))
+

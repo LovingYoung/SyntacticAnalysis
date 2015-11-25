@@ -1,10 +1,9 @@
 PROGRAM add
 VAR x,y;
 BEGIN
-  		x:=-(16*y+fda*df-(a*b));
+  		x:=(a*b+(3+5)*fda+b)
   		y:=2;
-  		WHILEH x<5 DO x:=x+1;
+  		WHILE x<5 DO x:=x+1;
   		IF y>0 THEN y:=y-1;
   		y:=y+x;
 END
-

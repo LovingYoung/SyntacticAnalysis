@@ -1,0 +1,102 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ASSIGNMENT	Syntactic.py	/^class ASSIGNMENT:$/;"	c
+Analysis	Syntactic.py	/^class Analysis:$/;"	c
+BLOCK	Syntactic.py	/^class BLOCK:$/;"	c
+COMPLEXSENTENCE	Syntactic.py	/^class COMPLEXSENTENCE:$/;"	c
+CONDITION	Syntactic.py	/^class CONDITION:$/;"	c
+CONDITIONSENTENCE	Syntactic.py	/^class CONDITIONSENTENCE:$/;"	c
+CONSTDEF	Syntactic.py	/^class CONSTDEF:$/;"	c
+CONSTINFO	Syntactic.py	/^class CONSTINFO:$/;"	c
+EXPRESSION	Syntactic.py	/^class EXPRESSION:$/;"	c
+FACTOR	Syntactic.py	/^class FACTOR:$/;"	c
+LOOP	Syntactic.py	/^class LOOP:$/;"	c
+LexAnalysis	LexAnalysis.py	/^class LexAnalysis:$/;"	c
+MULTIOP	Syntactic.py	/^class MULTIOP:$/;"	c
+PARAINFO	Syntactic.py	/^class PARAINFO:$/;"	c
+PLUSOP	Syntactic.py	/^class PLUSOP:$/;"	c
+PROG	Syntactic.py	/^class PROG:$/;"	c
+PROGHEAD	Syntactic.py	/^class PROGHEAD:$/;"	c
+RELATIONOP	Syntactic.py	/^class RELATIONOP:$/;"	c
+SENTENCE	Syntactic.py	/^class SENTENCE:$/;"	c
+SENTENCEPART	Syntactic.py	/^class SENTENCEPART:$/;"	c
+TERM	Syntactic.py	/^class TERM:$/;"	c
+Token	LexAnalysis.py	/^class Token:$/;"	c
+TreeNode	Syntactic.py	/^class TreeNode:$/;"	c
+__init__	LexAnalysis.py	/^    def __init__(self):$/;"	m	class:LexAnalysis
+__init__	LexAnalysis.py	/^    def __init__(self, typeId = 0, value = ""):$/;"	m	class:Token
+__init__	Syntactic.py	/^    def __init__(self, parent=None, typename=None, value=None):$/;"	m	class:TreeNode
+__init__	Syntactic.py	/^    def __init__(self, value):$/;"	m	class:myException
+__str__	Syntactic.py	/^    def __str__(self):$/;"	m	class:myException	file:
+_isDelimiter	LexAnalysis.py	/^    def _isDelimiter(self, word):$/;"	m	class:LexAnalysis
+_isIdentifier	LexAnalysis.py	/^    def _isIdentifier(self, word):$/;"	m	class:LexAnalysis
+_isInteger	LexAnalysis.py	/^    def _isInteger(self, word):$/;"	m	class:LexAnalysis
+_isKeyword	LexAnalysis.py	/^    def _isKeyword(self, word):$/;"	m	class:LexAnalysis
+_isMedia	LexAnalysis.py	/^    def _isMedia(self, word):$/;"	m	class:LexAnalysis
+_isOperator	LexAnalysis.py	/^    def _isOperator(self, word):$/;"	m	class:LexAnalysis
+_toToken	LexAnalysis.py	/^    def _toToken(self, word):$/;"	m	class:LexAnalysis
+a	main.py	/^    a = LexAnalysis.LexAnalysis()$/;"	v
+addChildren	Syntactic.py	/^    def addChildren(self, children):$/;"	m	class:TreeNode
+analysis	Syntactic.py	/^    def analysis(instr):$/;"	m	class:Analysis
+analysis	main.py	/^def analysis(string = None, readFile = "testLex"):$/;"	f
+ans	main.py	/^    ans = a.lex()$/;"	v
+getChildren	Syntactic.py	/^    def getChildren(self):$/;"	m	class:TreeNode
+getParent	Syntactic.py	/^    def getParent(self):$/;"	m	class:TreeNode
+getStringToToken	LexAnalysis.py	/^    def getStringToToken(self):$/;"	m	class:LexAnalysis
+getType	Syntactic.py	/^    def getType(self):$/;"	m	class:TreeNode
+getTypeId	LexAnalysis.py	/^    def getTypeId(self):$/;"	m	class:Token
+getValue	LexAnalysis.py	/^    def getValue(self):$/;"	m	class:Token
+getValue	Syntactic.py	/^    def getValue(self):$/;"	m	class:TreeNode
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:ASSIGNMENT
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:BLOCK
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:COMPLEXSENTENCE
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:CONDITION
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:CONDITIONSENTENCE
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:CONSTDEF
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:CONSTINFO
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:EXPRESSION
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:FACTOR
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:LOOP
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:MULTIOP
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:PARAINFO
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:PLUSOP
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:RELATIONOP
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:SENTENCE
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:SENTENCEPART
+getfirst	Syntactic.py	/^    def getfirst():$/;"	m	class:TERM
+lex	LexAnalysis.py	/^    def lex(self):$/;"	m	class:LexAnalysis
+myException	Syntactic.py	/^class myException(Exception):$/;"	c
+parseTreeRoot	main.py	/^        parseTreeRoot = processAns[1]$/;"	v
+printParseTree	main.py	/^def printParseTree(root, level = 1, parent = -1, up = list(), lastChild = False):$/;"	f
+process	Syntactic.py	/^    def process(instr):$/;"	m	class:PROG
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:ASSIGNMENT
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:COMPLEXSENTENCE
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:CONDITION
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:CONDITIONSENTENCE
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:CONSTDEF
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:CONSTINFO
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:EXPRESSION
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:FACTOR
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:LOOP
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:MULTIOP
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:PARAINFO
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:PLUSOP
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:PROGHEAD
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:RELATIONOP
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:SENTENCE
+process	Syntactic.py	/^    def process(instr, root):$/;"	m	class:TERM
+process	Syntactic.py	/^    def process(instr,root):$/;"	m	class:BLOCK
+process	Syntactic.py	/^    def process(instr,root):$/;"	m	class:SENTENCEPART
+processAns	main.py	/^        processAns = Syntactic.PROG.process(ans)$/;"	v
+raiseException	Syntactic.py	/^    def raiseException(instr):$/;"	m	class:Analysis
+readFromFile	LexAnalysis.py	/^    def readFromFile(self, file):$/;"	m	class:LexAnalysis
+readFromString	LexAnalysis.py	/^    def readFromString(self, string):$/;"	m	class:LexAnalysis
+setParent	Syntactic.py	/^    def setParent(self, parent):$/;"	m	class:TreeNode
+setType	Syntactic.py	/^    def setType(self, typename):$/;"	m	class:TreeNode
+setTypeId	LexAnalysis.py	/^    def setTypeId(self, typeId):$/;"	m	class:Token
+setValue	LexAnalysis.py	/^    def setValue(self, value):$/;"	m	class:Token
+setValue	Syntactic.py	/^    def setValue(self, value):$/;"	m	class:TreeNode
